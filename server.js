@@ -5,35 +5,32 @@ import { config } from 'dotenv';
 import path from 'path';
 import connectDB from './config/db.js';
 import userRoutes from "./routes/userRoutes.js";
-import postRoutes from "./routes/postRoutes";
-import commentRoutes from "./routes/commentRoutes";
-import postCategoriesRoutes from "./routes/postCategoriesRoutes";
+import postRoutes from "./routes/postRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+import postCategoriesRoutes from "./routes/postCategoriesRoutes.js";
 import quizRoutes from "./routes/quizroute.js";
 import quizzesRoutes from "./routes/Quizzesroute.js";
 import bodyParser from "body-parser"
 import {
   errorResponserHandler,
   invalidPathHandler,
-} from "./middleware/errorHandler";
+} from "./middleware/errorHandler.js";
 import videoRoutes from "./routes/videoRoutes.js";
 import bookRoutes from "./routes/book-routes.js";
 import authRoutes from "./routes/auth.js";
 import commentvideo from "./routes/commenvideo.js";
 import cookieParser from 'cookie-parser';
 
-
 config();
 const app = express();
 
 // Middlewares
 app.use(morgan('tiny'));
-// app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Routes
-
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
@@ -42,10 +39,8 @@ app.use('/api/commentube', commentvideo);
 app.use('/api/post-categories', postCategoriesRoutes);
 app.use('/api/quiz', quizRoutes);
 app.use('/api/quizzes', quizzesRoutes);
-app.use("/api/auth", authRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/books", bookRoutes);
-
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
@@ -58,13 +53,11 @@ app.use((err, req, res, next) => {
 });
 
 // Static assets
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use('/uploads', express.static(path.join(process.cwd(), '/uploads')));
 
 // Error handling middleware
 app.use(invalidPathHandler);
 app.use(errorResponserHandler);
-
-
 
 // Default route
 app.get('/', (req, res) => {
@@ -76,7 +69,7 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-const port = process.env.PORT || 5000;
+const port = /*process.env.PORT ||*/ 'https://voc-api.onrender.com';
 connectDB().then(() => {
   app.listen(port, () => {
     console.log(`Server connected to http://localhost:${port}`);
