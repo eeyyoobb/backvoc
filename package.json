@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon -r esm server.js",
+    "start": "nodemon server.js",
     "dev": "node -r esm server.js",
-    "build": "build"
+    "build": "yarn build"
   },
   "keywords": [],
   "author": "",
