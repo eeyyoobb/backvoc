@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon -r esm server.js",
-    "dev": "node -r esm server.js"
+    "dev": "node -r esm server.js",
+    "build": "build"
   },
   "keywords": [],
   "author": "",
