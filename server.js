@@ -29,6 +29,7 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cors());
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -69,7 +70,7 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-const port = /*process.env.PORT ||*/ 'https://voc-api.onrender.com';
+const port = process.env.PORT || 'https://voc-api.onrender.com';
 connectDB().then(() => {
   app.listen(port, () => {
     console.log(`Server connected to http://localhost:${port}`);
